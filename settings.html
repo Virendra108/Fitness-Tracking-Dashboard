@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracking Dashboard - Settings</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body class="">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Fitness Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="dashboard.html">Dashboard</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="settings.html">Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="bg-success text-white text-center py-4">
+        <h1>Settings</h1>
+    </header>
+
+    <!-- Settings Content -->
+    <div class="container my-5">
+        <form>
+            <!-- Profile Settings 
+            <div class="card p-3 mb-4">
+                <h2 class="h4">Profile Settings</h2>
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="nameInput" placeholder="Enter your name">
+                </div>
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="emailInput" placeholder="Enter your email">
+                </div>
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="passwordInput" placeholder="Change your password">
+                </div>
+            </div>
+            -->
+            <!-- Notification Settings -->
+            <div class="card p-3 mb-4">
+                <h2 class="h4">Notification Settings</h2>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="emailNotifications" checked>
+                    <label class="form-check-label" for="emailNotifications">
+                        Email Notifications
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="smsNotifications">
+                    <label class="form-check-label" for="smsNotifications">
+                        SMS Notifications
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="appNotifications" checked>
+                    <label class="form-check-label" for="appNotifications">
+                        In-App Notifications
+                    </label>
+                </div>
+            </div>
+
+            <!-- Chart Display Options -->
+            <div class="card p-3 mb-4">
+                <h2 class="h4">Chart Display Options</h2>
+                <div class="mb-3">
+                    <label for="weightUnits" class="form-label">Weight Unit</label>
+                    <select class="form-select" id="weightUnits">
+                        <option value="kg" selected>Kilograms (kg)</option>
+                        <option value="lbs">Pounds (lbs)</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="distanceUnits" class="form-label">Distance Unit</label>
+                    <select class="form-select" id="distanceUnits">
+                        <option value="km" selected>Kilometers (km)</option>
+                        <option value="miles">Miles</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Reminders -->
+            <div class="card p-3 mb-4">
+                <h2 class="h4">Reminders</h2>
+                <div class="mb-3">
+                    <label for="hydrationReminder" class="form-label">Hydration Reminder (hours)</label>
+                    <input type="number" class="form-control" id="hydrationReminder" placeholder="Set hydration reminder frequency" min="1" max="24">
+                </div>
+                <div class="mb-3">
+                    <label for="exerciseReminder" class="form-label">Exercise Reminder (hours)</label>
+                    <input type="number" class="form-control" id="exerciseReminder" placeholder="Set exercise reminder frequency" min="1" max="24">
+                </div>
+            </div>
+
+            <!--Theme-->
+            <div class="container my-5">
+                <div class="card p-3">
+                    <h2 class="h4">Theme Settings</h2>
+                    <label for="theme-select">Choose Theme:</label>
+                    <select id="theme-select" class="form-select">
+                        <option value="light">Light Mode</option>
+                        <option value="dark">Dark Mode</option>
+                    </select>
+                </div>
+            </div>            
+
+            <!-- Save Settings Button -->
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">Save Settings</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4 bg-light">
+        <p>&copy; 2024 Fitness Dashboard. All rights reserved.</p>
+    </footer>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
