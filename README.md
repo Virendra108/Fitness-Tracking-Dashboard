@@ -26,16 +26,15 @@ To run the Fitness Tracking Dashboard locally, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/fitness-tracking-dashboard.git
-   cd fitness-tracking-dashboard
+   git clone https://github.com/parth-gz/Fitness-Tracking-Dashboard.git
+   cd Fitness-Tracking-Dashboard
    
 2. **Set up the database:**
 
-- Create a new MySQL database and update the connection.php file with your database credentials.
-- Import the SQL schema (if available) to set up necessary tables.
+- Create a new MySQL database using the queries in `database_schema.sql` and update the connection.php file with your database credentials.
 
 3. **Run the application:**
 
 - Ensure you have a local server environment set up (e.g., XAMPP, MAMP).
 - Place the project files in the server's root directory (e.g., htdocs for XAMPP).
-- Access the application through your web browser at http://localhost/fitness-tracking-dashboard.
+- Access the application through your web browser at http://localhost/Fitness-Tracking-Dashboard.
