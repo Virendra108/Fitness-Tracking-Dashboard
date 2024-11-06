@@ -12,6 +12,7 @@ if (!isset($_SESSION['user_id'])) {
 $first_name = $_SESSION['username']; // Assuming this is set during login
 $user_email = $_SESSION['email']; // Assuming this is set during login
 $current_date = date('l, F j, Y'); // Current date format
+$profile_photo = isset($_SESSION['profile_photo']) ? $_SESSION['profile_photo'] : '/path/to/default_photo.jpg';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +22,7 @@ $current_date = date('l, F j, Y'); // Current date format
     <title>Fitness Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
         .stat-card {
             background: #f8f9fa;
@@ -75,6 +77,11 @@ $current_date = date('l, F j, Y'); // Current date format
             height: 40px;
             border-radius: 50%;
         }
+        .map-container {
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -111,7 +118,7 @@ $current_date = date('l, F j, Y'); // Current date format
             </div>
             <div class="d-flex align-items-center gap-3">
                 <span class="text-muted"><?php echo htmlspecialchars($user_email); ?></span>
-                <img src="/api/placeholder/40/40" alt="Profile" class="profile-img">
+                <img src="<?php echo htmlspecialchars($profile_photo); ?>" alt="Profile" class="profile-img">
                 <i class="fas fa-cog"></i>
             </div>
         </div>
@@ -171,7 +178,7 @@ $current_date = date('l, F j, Y'); // Current date format
                     <h6>Water Intake</h6>
                     <h3 class="mb-3">3/10 <small>Glasses</small></h3>
                     <div class="progress-circle mx-auto">
-                        <div class="progress-circle-inner">52%</div>
+                        <div class="progress-circle-inner">30%</div>
                     </div>
                 </div>
             </div>
@@ -190,7 +197,7 @@ $current_date = date('l, F j, Y'); // Current date format
                             </h5>
                             <button class="btn btn-dark btn-sm">Add workout</button>
                         </div>
-                        <div class="map-container mb-3">
+                        <div id="map" class="map-container mb-3">
                             <img src="/api/placeholder/800/300" alt="Running Map" class="w-100 h-100 object-fit-cover">
                         </div>
                         <div class="d-flex justify-content-between">
@@ -313,5 +320,37 @@ $current_date = date('l, F j, Y'); // Current date format
         
         document.getElementById('stepsChart').appendChild(stepsCanvas);
     </script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+    // Initialize the map
+    var map = L.map('map').setView([51.505, -0.09], 13); // Set initial coordinates and zoom level
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Define a realistic route following streets
+    var route = [
+        [51.505, -0.09],    // Starting point
+        [51.506, -0.091],   // Slight turn
+        [51.507, -0.092],   // Straight path
+        [51.508, -0.093],   // Turn again
+        [51.509, -0.094],   // Continuing on the street
+        [51.51, -0.095],    // Further down the street
+        [51.511, -0.096]    // Ending point
+    ];
+
+    // Draw polyline on the map
+    L.polyline(route, { color: 'blue', weight: 4 }).addTo(map);
+
+    // Zoom the map to fit the polyline
+    map.fitBounds(route);
+</script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
