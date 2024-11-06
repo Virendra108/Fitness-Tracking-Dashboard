@@ -13,209 +13,72 @@ $first_name = $_SESSION['username']; // Assuming this is set during login
 $user_email = $_SESSION['email']; // Assuming this is set during login
 $current_date = date('l, F j, Y'); // Current date format
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Fitness Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .header {
-            padding: 20px;
-            background-color: white;
-            color: black;
-            text-align: center;
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+            height: 100%;
         }
         .navbar {
             margin-bottom: 20px;
         }
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
 
-        body {
-            background-color: #f5f5f5;
-            padding: 20px;
+        .green-card {
+            background: rgba(144, 238, 144, 0.1);
         }
-
-        .dashboard {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        
+        .purple-card {
+            background: rgba(147, 112, 219, 0.1);
         }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
+        
+        .blue-card {
+            background: rgba(173, 216, 230, 0.1);
         }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        
+        .light-blue-card {
+            background: rgba(135, 206, 235, 0.1);
         }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #f0f0f0;
+        
+        .progress-circle {
+            width: 120px;
+            height: 120px;
         }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .stat-card h3 {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .stat-card .value {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .stat-card .unit {
-            font-size: 14px;
-            color: #666;
-        }
-
-        .bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-        }
-
-        .map-section {
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px;
-            grid-column: span 2;
-        }
-
-        .map-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
+        
         .map-container {
-            width: 100%;
             height: 300px;
-            background: #f0f0f0;
-            border-radius: 10px;
-            position: relative;
+            border-radius: 15px;
             overflow: hidden;
         }
-
-        .activity-section {
-            background: #fff;
-            border-radius: 15px;
-            padding: 20px;
+        
+        .activity-progress {
+            height: 8px;
+            border-radius: 4px;
         }
-
-        .progress-circle {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-            position: relative;
-        }
-
+        
         .music-player {
-            background: #fff;
+            background: #f8f9fa;
             border-radius: 15px;
-            padding: 15px;
-            margin-top: 20px;
+            padding: 1rem;
         }
-
-        .music-controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .control-btn {
+        
+        .profile-img {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            border: none;
-            background: #f0f0f0;
-            cursor: pointer;
-        }
-        .add-workout-btn {
-            background-color: black; /* Black background */
-            color: white; /* White text */
-            border: none; /* Remove border */
-            border-radius: 5px; /* Slightly rounded corners */
-            padding: 10px 20px; /* Padding for a rectangular shape */
-            cursor: pointer; /* Pointer cursor on hover */
-        }
-        /* Charts */
-        .bar-chart {
-            height: 60px;
-            display: flex;
-            align-items: flex-end;
-            gap: 4px;
-        }
-
-        .bar {
-            flex: 1;
-            background: #007bff;
-            opacity: 0.7;
-        }
-
-        .water-circle {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 8px solid #e9ecef;
-            position: relative;
-            margin: 10px auto;
-        }
-
-        .water-fill {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #007bff;
-            border-radius: 0 0 50% 50%;
         }
     </style>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-
 </head>
 <body>
-
+    
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Fitness Dashboard</a>
@@ -239,176 +102,216 @@ $current_date = date('l, F j, Y'); // Current date format
         </ul>
     </div>
 </nav>
-<div class="dashboard">
-    
-
-        <div class="header">
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
-		<h1>Hey, <?php echo htmlspecialchars($first_name); ?>!</h1>
-                <p><?php echo $current_date; ?></p>
-    		
+                <h1 class="h3 mb-0">Hello, <?php echo htmlspecialchars($first_name); ?>! 👋</h1>
+                <small class="text-muted"><?php echo $current_date; ?></small>
             </div>
-            <div class="user-info">
-                <span><?php echo htmlspecialchars($user_email); ?></span>
-                <div class="user-avatar"></div>
-            </div>
-        </div>
-
-        <div class="stats-grid">
-            <div class="stat-card">
-                <h3>Active Minutes</h3>
-                <div class="bar-chart">
-                    <div class="bar" style="height: 60%"></div>
-                    <div class="bar" style="height: 80%"></div>
-                    <div class="bar" style="height: 40%"></div>
-                    <div class="bar" style="height: 90%"></div>
-                    <div class="bar" style="height: 70%"></div>
-                    <div class="bar" style="height: 50%"></div>
-                    <div class="bar" style="height: 85%"></div>
-                </div>
-                <div class="value">125 <span class="unit">Min</span></div>
-            </div>
-
-            <div class="stat-card">
-                <h3>Calories Burned</h3>
-                <div class="bar-chart">
-                    <div class="bar" style="height: 70%"></div>
-                    <div class="bar" style="height: 65%"></div>
-                    <div class="bar" style="height: 80%"></div>
-                    <div class="bar" style="height: 75%"></div>
-                    <div class="bar" style="height: 60%"></div>
-                    <div class="bar" style="height: 55%"></div>
-                    <div class="bar" style="height: 50%"></div>
-                </div>
-                <div class="value">882 <span class="unit">Kcal</span></div>
-            </div>
-
-            <div class="stat-card">
-                <h3>Steps Taken</h3>
-                <canvas id="stepsChart" width="100" height="60"></canvas>
-                <div class="value">11,222 <span class="unit">Steps</span></div>
-            </div>
-
-            <div class="stat-card">
-                <h3>Water Intake</h3>
-                <div class="water-circle">
-                    <div class="water-fill" style="height: 52%"></div>
-                </div>
-                <div class="value">3/10 <span class="unit">Glasses</span></div>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-muted"><?php echo htmlspecialchars($user_email); ?></span>
+                <img src="/api/placeholder/40/40" alt="Profile" class="profile-img">
+                <i class="fas fa-cog"></i>
             </div>
         </div>
 
-        <div class="bottom-section">
-            <div class="map-section">
-                <div class="map-header">
-                    <h3>⚡ Running place activity</h3>
-                    <button class="add-workout-btn" data-toggle="modal" data-target="#addWorkoutModal">Add Workout</button>
-                </div>
-                <!-- Map container for Leaflet map -->
-                <div id="map" class="map-container"></div>
-                <div style="margin-top: 15px">
-                    <p>Interval Running</p>
-                    <p>5.2 km • 26:21 min</p>
+        <!-- Stats Grid -->
+        <div class="row g-4 mb-4">
+            <!-- Active Minutes -->
+            <div class="col-md-3">
+                <div class="stat-card green-card">
+                    <div class="d-flex justify-content-between mb-3">
+                        <i class="fas fa-heart"></i>
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h6>Active Minutes</h6>
+                    <h3 class="mb-3">125 <small>Min</small></h3>
+                    <div class="progress activity-progress">
+                        <div class="progress-bar bg-success" style="width: 75%"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="activity-section">
-                <h3>Activity</h3>
-                <div class="progress-circle">
-                    <canvas id="activityChart" width="150" height="150"></canvas>
+            <!-- Calories Burned -->
+            <div class="col-md-3">
+                <div class="stat-card purple-card">
+                    <div class="d-flex justify-content-between mb-3">
+                        <i class="fas fa-fire"></i>
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h6>Calories Burned</h6>
+                    <h3 class="mb-3">882 <small>Kcal</small></h3>
+                    <div class="progress activity-progress">
+                        <div class="progress-bar bg-purple" style="width: 65%"></div>
+                    </div>
                 </div>
-                <div style="text-align: center">
-                    <p>Daily payment: 55%</p>
-                    <p>Hobby: 20%</p>
-                </div>
+            </div>
 
+            <!-- Steps Taken -->
+            <div class="col-md-3">
+                <div class="stat-card blue-card">
+                    <div class="d-flex justify-content-between mb-3">
+                        <i class="fas fa-shoe-prints"></i>
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h6>Steps Taken</h6>
+                    <h3 class="mb-3">11,222 <small>Steps</small></h3>
+                    <div id="stepsChart"></div>
+                </div>
+            </div>
+
+            <!-- Water Intake -->
+            <div class="col-md-3">
+                <div class="stat-card light-blue-card">
+                    <div class="d-flex justify-content-between mb-3">
+                        <i class="fas fa-tint"></i>
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <h6>Water Intake</h6>
+                    <h3 class="mb-3">3/10 <small>Glasses</small></h3>
+                    <div class="progress-circle mx-auto">
+                        <div class="progress-circle-inner">52%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Running Activity & Progress -->
+        <div class="row g-4 mb-4">
+            <!-- Running Map -->
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-bolt text-warning me-2"></i>
+                                Running place activity
+                            </h5>
+                            <button class="btn btn-dark btn-sm">Add workout</button>
+                        </div>
+                        <div class="map-container mb-3">
+                            <img src="/api/placeholder/800/300" alt="Running Map" class="w-100 h-100 object-fit-cover">
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small class="text-muted">Distance</small>
+                                <h5 class="mb-0">5.2 km</h5>
+                            </div>
+                            <div>
+                                <small class="text-muted">Time</small>
+                                <h5 class="mb-0">26:21 min</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Circle -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Total progress</h5>
+                        <div class="progress-circle mx-auto mb-3" style="width: 200px; height: 200px;">
+                            <!-- Progress circle would be implemented with JavaScript -->
+                        </div>
+                        <div class="d-flex justify-content-center gap-4">
+                            <div class="text-center">
+                                <div class="bg-purple rounded-circle p-2 mb-2"></div>
+                                <small>Strength</small>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-success rounded-circle p-2 mb-2"></div>
+                                <small>Endurance</small>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-info rounded-circle p-2 mb-2"></div>
+                                <small>Speed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity & Music Player -->
+        <div class="row g-4">
+            <!-- Activity -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Activity</h5>
+                        <div class="progress mb-4" style="height: 10px;">
+                            <div class="progress-bar bg-success" style="width: 55%"></div>
+                            <div class="progress-bar bg-info" style="width: 20%"></div>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <small class="text-muted">Daily payment</small>
+                                <div>55%</div>
+                            </div>
+                            <div>
+                                <small class="text-muted">Hobby</small>
+                                <div>20%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Music Player -->
+            <div class="col-md-8">
                 <div class="music-player">
-                    <h4>Great and Marvelous</h4>
-                    <p>Pink Rabbits - The National</p>
-                    <div class="music-controls">
-                        <button class="control-btn">⟲</button>
-                        <button class="control-btn">⏮</button>
-                        <button class="control-btn">▶</button>
-                        <button class="control-btn">⏭</button>
-                        <button class="control-btn">↻</button>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div>
+                            <small class="text-uppercase text-muted">Party</small>
+                            <h5 class="mb-0">Great and Marvelous</h5>
+                            <small class="text-uppercase text-primary">Today</small>
+                        </div>
+                        <div class="d-flex gap-3">
+                            <i class="fas fa-random"></i>
+                            <i class="fas fa-step-backward"></i>
+                            <i class="fas fa-play"></i>
+                            <i class="fas fa-step-forward"></i>
+                            <i class="fas fa-redo"></i>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img src="/api/placeholder/50/50" alt="Album art" class="me-3 rounded">
+                        <div>
+                            <h6 class="mb-0">Pink Rabbits</h6>
+                            <small class="text-muted">The National</small>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Steps Chart
-        const stepsCtx = document.getElementById('stepsChart').getContext('2d');
-        const steps = [8000, 9000, 11000, 10000, 11222, 9500, 8800];
-        const maxStep = Math.max(...steps);
+        // Simple steps chart using canvas
+        const stepsCanvas = document.createElement('canvas');
+        const ctx = stepsCanvas.getContext('2d');
+        const stepsData = [8000, 9500, 11000, 10500, 11222, 10800, 11000];
         
-        stepsCtx.beginPath();
-        stepsCtx.moveTo(0, 50);
-        steps.forEach((step, index) => {
-            const x = (index / (steps.length - 1)) * stepsCtx.canvas.width;
-            const y = 50 - (step / maxStep) * 40;
-            if (index === 0) {
-                stepsCtx.moveTo(x, y);
-            } else {
-                stepsCtx.lineTo(x, y);
-            }
+        // Set canvas size
+        stepsCanvas.width = document.getElementById('stepsChart').offsetWidth;
+        stepsCanvas.height = 100;
+        
+        // Draw steps chart
+        ctx.beginPath();
+        ctx.moveTo(0, 80);
+        stepsData.forEach((steps, index) => {
+            const x = (index / (stepsData.length - 1)) * stepsCanvas.width;
+            const y = 80 - (steps / 15000) * 60;
+            ctx.lineTo(x, y);
         });
-        stepsCtx.strokeStyle = '#007bff';
-        stepsCtx.lineWidth = 2;
-        stepsCtx.stroke();
-
-        // Activity Chart
-        const activityCtx = document.getElementById('activityChart').getContext('2d');
-        const centerX = 75;
-        const centerY = 75;
-        const radius = 60;
-
-        // Draw background circle
-        activityCtx.beginPath();
-        activityCtx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-        activityCtx.strokeStyle = '#f0f0f0';
-        activityCtx.lineWidth = 10;
-        activityCtx.stroke();
-
-        // Draw progress arc (75%)
-        activityCtx.beginPath();
-        activityCtx.arc(centerX, centerY, radius, -Math.PI/2, (2 * Math.PI * 0.75) - Math.PI/2);
-        activityCtx.strokeStyle = '#28a745';
-        activityCtx.stroke();
+        ctx.strokeStyle = '#4dabf7';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        
+        document.getElementById('stepsChart').appendChild(stepsCanvas);
     </script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script>
-    // Initialize the map
-    var map = L.map('map').setView([51.505, -0.09], 13); // Set initial coordinates and zoom level
-
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Define a realistic route following streets
-    var route = [
-        [51.505, -0.09],    // Starting point
-        [51.506, -0.091],   // Slight turn
-        [51.507, -0.092],   // Straight path
-        [51.508, -0.093],   // Turn again
-        [51.509, -0.094],   // Continuing on the street
-        [51.51, -0.095],    // Further down the street
-        [51.511, -0.096]    // Ending point
-    ];
-
-    // Draw polyline on the map
-    L.polyline(route, { color: 'blue', weight: 4 }).addTo(map);
-
-    // Zoom the map to fit the polyline
-    map.fitBounds(route);
-</script>
-
-
-<!-- Bootstrap JS and dependencies -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
